@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IndLan IDE — Code in Hindi & English</title>
+  <link rel="shortcut icon" href="indlan_icon.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet" />
 <style>
 :root {
@@ -176,7 +177,8 @@ kbd { font-family: var(--mono); font-size: .76rem; background: var(--bg-card); b
 .doc-code { background: var(--mono-bg); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 16px 0; }
 .doc-code .code-header { background: #1a1f2e; padding: 10px 18px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
 .doc-code pre { padding: 20px 22px; font-family: var(--mono); font-size: .82rem; line-height: 1.85; overflow-x: auto; }
-.kw-table { width: 100%; border-collapse: collapse; font-size: .86rem; margin: 16px 0; }
+.kw-table { width: 100%; border-collapse: collapse; font-size: .86rem; margin: 0; min-width: 480px; }
+.kw-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 16px 0; border-radius: 10px; }
 .kw-table th { text-align: left; padding: 10px 16px; font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim); border-bottom: 1px solid var(--border); background: #1a1f2e; }
 .kw-table td { padding: 11px 16px; border-bottom: 1px solid rgba(255,255,255,.04); color: var(--text-muted); }
 .kw-table tr:last-child td { border-bottom: none; }
@@ -570,6 +572,7 @@ greet(<span class="str">"Bhavya"</span>)</code></pre>
         <div class="doc-section" id="doc-keywords">
           <h3>Keyword Reference</h3>
           <p>Complete English ↔ Hindi keyword table. Both forms are always accepted and can be mixed freely.</p>
+          <div class="kw-table-wrap">
           <table class="kw-table">
             <thead><tr><th>English</th><th>Hindi</th><th>Meaning</th></tr></thead>
             <tbody>
@@ -599,6 +602,7 @@ greet(<span class="str">"Bhavya"</span>)</code></pre>
               <tr><td>not</td><td>nahi</td><td>Logical not</td></tr>
             </tbody>
           </table>
+          </div>
         </div>
 
         <div class="doc-section" id="doc-variables">
@@ -720,6 +724,7 @@ kutta.bolo()   <span class="cm">// → Kutta bolta hai Bhow</span></code></pre>
         <div class="doc-section" id="doc-io">
           <h3>Input / Output</h3>
           <p>Print with <span class="mono">chhap()</span> / <span class="mono">print()</span>. Four typed input functions — each has a Hindi alias:</p>
+          <div class="kw-table-wrap">
           <table class="kw-table">
             <thead><tr><th>English</th><th>Hindi</th><th>Returns</th></tr></thead>
             <tbody>
@@ -729,6 +734,7 @@ kutta.bolo()   <span class="cm">// → Kutta bolta hai Bhow</span></code></pre>
               <tr><td>input_bool(prompt?)</td><td>haan_na(prompt?)</td><td>bool (true/false)</td></tr>
             </tbody>
           </table>
+          </div>
           <div class="doc-code">
             <div class="code-header"><span class="code-filename">io.ind</span><button class="copy-btn" data-target="doc-pre-10">Copy</button></div>
             <pre id="doc-pre-10"><code><span class="kw">maano</span> naam  = <span class="fn">aalao</span>(<span class="str">"Aapka naam kya hai? "</span>)
@@ -830,6 +836,7 @@ kutta.bolo()   <span class="cm">// → Kutta bolta hai Bhow</span></code></pre>
 
         <div class="doc-section" id="doc-operators">
           <h3>Operators &amp; Extras <span class="badge-new">New in v1.1</span></h3>
+          <div class="kw-table-wrap">
           <table class="kw-table">
             <thead><tr><th>Syntax</th><th>Description</th><th>Example</th></tr></thead>
             <tbody>
@@ -840,6 +847,7 @@ kutta.bolo()   <span class="cm">// → Kutta bolta hai Bhow</span></code></pre>
               <tr><td>+=  -=  *=  /=</td><td>Compound assignment</td><td>i += 1</td></tr>
             </tbody>
           </table>
+          </div>
         </div>
 
       </div><!-- /docs-content -->
@@ -1113,14 +1121,24 @@ const lines = [
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function highlight(text){
   let h = esc(text);
+  // Pull out string literals FIRST and stash them behind placeholders.
+  // (Previously this ran last, so its quote-matching regex would also catch
+  // the style="..." attributes already inserted by the keyword/function
+  // highlighting below, mangling the markup into broken tags.)
+  const strings = [];
+  h = h.replace(/f?"[^"]*"/g, m=>{
+    const withOp = m.replace(/\*\*/g, `<span style="color:#ff9f43">**</span>`);
+    strings.push(`<span style="color:#c3e88d">${withOp}</span>`);
+    return `\u0000${strings.length-1}\u0000`;
+  });
   ['maano','agar','nahito_agar','nahito','jabtak','pratyek','mein','karo','kaam','vapas','varg','naya','yeh','let','if','elif','else','while','for','in','fun','return','class','new','this'].forEach(k=>{
     h = h.replace(new RegExp('\\b'+k+'\\b','g'),`<span style="color:#c792ea;font-weight:600">${k}</span>`);
   });
   ['chhap','print','aalao','number_dalao','decimal_dalao','haan_na','input','sqrt','abs','max','min'].forEach(f=>{
     h = h.replace(new RegExp('\\b'+f+'\\b','g'),`<span style="color:#82aaff">${f}</span>`);
   });
-  h = h.replace(/f?"[^"]*"/g, m=>`<span style="color:#c3e88d">${m}</span>`);
   h = h.replace(/\*\*/g,`<span style="color:#ff9f43">**</span>`);
+  h = h.replace(/\u0000(\d+)\u0000/g, (_, i)=>strings[i]);
   return h;
 }
 
