@@ -285,6 +285,11 @@ kbd { font-family: var(--mono); font-size: .76rem; background: var(--bg-card); b
       </a>
       <a href="#code-preview" class="btn btn-ghost">See the syntax →</a>
     </div>
+    <div class="hero-meta" style="margin-bottom: 14px;">
+      <span class="mono">pip install indlan</span>
+      <span class="sep">·</span>
+      <span>now on PyPI</span>
+    </div>
     <div class="hero-meta">
       <span>Made by <strong>Bhavya S Solanki</strong></span>
       <span class="sep">·</span>
@@ -503,7 +508,34 @@ greet(<span class="str">"Bhavya"</span>)</code></pre>
   <div class="container">
     <p class="section-eyebrow">Get started</p>
     <h2 class="section-title">Download IndLan IDE</h2>
-    <p class="download-desc">Everything you need to build and run the IDE on Windows. Unzip, double-click <span class="mono">build_exe.bat</span>, and you're coding in minutes.</p>
+    <p class="download-desc">Two ways to get IndLan running — grab the Windows IDE, or install the language straight from PyPI with pip.</p>
+
+    <div class="download-card fade-up" style="border-color: rgba(40,200,120,.35); box-shadow: 0 0 48px rgba(40,200,120,.08); margin-bottom: 20px;">
+      <div class="download-info">
+        <div class="download-icon">&#128230;</div>
+        <div>
+          <div class="download-name">pip install indlan <span class="badge-new">On PyPI</span></div>
+          <div class="download-meta">Works on Windows, macOS, and Linux &nbsp;·&nbsp; Requires Python 3.8+ &nbsp;·&nbsp; Includes <span class="mono">indlan</span> &amp; <span class="mono">indlan-ide</span> commands</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div class="code-header" style="background: var(--mono-bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; display:flex; align-items:center; gap:14px;">
+          <code id="pip-install-cmd" style="font-family: var(--mono); font-size: .9rem; color: var(--accent2);">pip install indlan</code>
+          <button class="copy-btn" data-target="pip-install-cmd">Copy</button>
+        </div>
+      </div>
+    </div>
+    <div class="download-requirements fade-up" style="margin-bottom: 32px;">
+      <h4>What you get</h4>
+      <ul>
+        <li><span class="mono">indlan</span> — run <span class="mono">.ind</span> files or start the REPL from any terminal</li>
+        <li><span class="mono">indlan-ide</span> — launch the Tkinter desktop editor</li>
+        <li><span class="mono">import indlan</span> — use the lexer/parser/interpreter as a Python library</li>
+        <li>View on <a href="https://pypi.org/project/indlan/" target="_blank" rel="noopener" style="color: var(--accent);">PyPI</a> or <a href="https://github.com/BSS2707/IndLan" target="_blank" rel="noopener" style="color: var(--accent);">GitHub</a></li>
+      </ul>
+    </div>
+
+    <p class="download-desc">Prefer a standalone app with no Python setup at all? Grab the prebuilt Windows IDE:</p>
     <div class="download-card fade-up">
       <div class="download-info">
         <div class="download-icon">&#128230;</div>
