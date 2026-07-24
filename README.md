@@ -1,142 +1,384 @@
-# IndLan
+# 🇮🇳 IndLan
 
-IndLan is a custom programming language with its own syntax — including bilingual English/Hindi keywords — implemented as a tree-walking interpreter in Python.
+> **A bilingual programming language that lets you code in English, Hindi, or both.**
 
-Made by **Bhavya S Solanki**.
+**IndLan** is a custom programming language created by **Bhavya S Solanki**. It features its own syntax, lexer, recursive-descent parser, Abstract Syntax Tree (AST), and tree-walking interpreter — all implemented in Python.
 
-## Run it two ways
+Write programs using familiar English keywords, Hindi-style keywords, or mix both in the same program.
 
-### 1. In your browser (no install needed)
+```indlan
+kaam greet(name) {
+    chhap("Namaste,", name)
+}
 
-Open `playground.html` directly in any browser (just double-click the file, or open it via File → Open). It loads Python in your browser using **Pyodide** (Python compiled to WebAssembly) from a CDN, with IndLan's interpreter embedded right in the page. Write code on the left, click **Run**, see output on the right.
+greet("World")
+```
 
-The CDN script is loaded from `https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js`, so you need an internet connection the first time you open the page (to fetch the Python runtime). After that, the page itself runs entirely locally — no server, no install, nothing uploaded anywhere.
+---
 
-### 2. On your computer with Python
+## ✨ Features
+
+* 🇬🇧 English and 🇮🇳 Hindi-style keywords
+* 🧠 Tree-walking interpreter
+* 🔤 Custom lexer and recursive-descent parser
+* 🌳 Abstract Syntax Tree (AST)
+* 🔁 Variables, loops, conditions, and functions
+* 🧩 Recursion and closures
+* 🏛️ Classes and objects
+* 📦 Lists and dictionaries
+* 🛠️ Built-in functions
+* 🖥️ Interactive REPL
+* 🌐 Browser playground powered by Pyodide
+* 📍 Line-numbered lexer, parser, and runtime errors
+* 🎉 Startup banner with creator credit
+
+---
+
+# 🚀 Run IndLan
+
+## 1. Install from PyPI
 
 ```bash
-python3 indlan.py myprogram.ind     # run a file
-python3 indlan.py                   # start an interactive REPL
+pip install indlan
 ```
 
-## Project structure
+## Run a program
 
+```bash
+indlan myprogram.ind
 ```
+
+## Start the interactive REPL
+
+```bash
+indlan
+```
+
+Example:
+
+```text
+$ indlan
+
+╔══════════════════════════════════════╗
+║        Welcome to IndLan 🇮🇳         ║
+║     Created by Bhavya S Solanki      ║
+╚══════════════════════════════════════╝
+
+>>
+```
+
+---
+
+## 2. Run in Your Browser
+
+No installation required.
+
+Open:
+
+```text
+playground.html
+```
+
+You can either:
+
+* Double-click the file
+* Open it using **File → Open** in your browser
+
+The browser playground uses **Pyodide**, which runs Python directly inside WebAssembly.
+
+The first time you open the playground, an internet connection is required to load the Python runtime. After that, the IndLan interpreter runs locally inside your browser.
+
+```text
+┌──────────────────────┬──────────────────────┐
+│   IndLan Code        │      Output           │
+│                      │                      │
+│   let x = 10         │   10                 │
+│   print(x)           │                      │
+│                      │                      │
+│       [ Run ]        │                      │
+└──────────────────────┴──────────────────────┘
+```
+
+---
+
+# 📁 Project Structure
+
+```text
 indlan/
-├── lexer.py             # turns source text into tokens
-├── ast_nodes.py          # AST node class definitions
-├── ind_parser.py          # recursive-descent parser: tokens -> AST
-├── interpreter.py          # tree-walking interpreter: executes the AST
-├── indlan.py                # CLI entry point / REPL
-├── playground.html           # browser-based runner (Pyodide + CDN)
-├── examples_ifelse.ind        # if / elif / else
-├── examples_hindi.ind          # Hindi-keyword version of all constructs
-└── myprogram.ind                 # simple starter file
+├── lexer.py              # Source code → Tokens
+├── ast_nodes.py          # AST node definitions
+├── ind_parser.py         # Tokens → AST
+├── interpreter.py         # AST execution
+├── indlan.py              # CLI and REPL
+├── playground.html        # Browser-based playground
+│
+├── examples_ifelse.ind    # if / elif / else example
+├── examples_hindi.ind     # Hindi keyword examples
+└── myprogram.ind          # Starter program
 ```
 
-## Language features
+---
 
-- **Variables**: `let x = 5`
-- **Types**: int, float, string, bool, list, dict, null
-- **Operators**: `+ - * / %`, `== != < > <= >=`, `and or not`, `+= -= *= /=`
-- **Control flow**: `if / elif / else`, `while`, `do { } while`, `for x in range(...)`, `switch / case / default`, `break`, `continue`
-- **Functions**: `fun name(params) { ... }`, recursion, closures, first-class functions
-- **Classes**: `class Name { fun init(...) {...} fun method(...) {...} }`, instantiated with `new Name(...)`
-- **Collections**: lists `[1, 2, 3]` with indexing/mutation, dicts `{"key": value}`
-- **Built-ins**: `print`, `len`, `range`, `str`, `int`, `float`, `input`, `type`, `append`, `pop`, `keys`, `values`
-- **String methods**: `.upper()`, `.lower()`, `.strip()`, `.split()`
-- **Comments**: `// line comment`, `/* block comment */`
-- **Error reporting**: every lexer, parser, and runtime error reports the line number
-- **Startup banner**: every run shows a welcome box crediting the creator
+# 🧑‍💻 Language Syntax
 
-## Hindi-style keywords
-
-Every keyword in IndLan has a Hindi-style alias that works exactly the same as its English equivalent — use whichever you prefer, or mix both in the same file.
-
-| English | Hindi alias | Meaning |
-|---|---|---|
-| `let` | `maano` | declare a variable |
-| `fun` | `kaam` | declare a function |
-| `return` | `vapas` | return a value |
-| `if` | `agar` | conditional |
-| `elif` | `nahito_agar` | else-if branch |
-| `else` | `nahito` | else branch |
-| `while` | `jabtak` | while loop |
-| `do` | `karo` | do (in do-while) |
-| `for` | `pratyek` | for-each loop |
-| `in` | `mein` | used in for-loops |
-| `switch` | `vibhag` | switch statement |
-| `case` | `sthiti` | switch case |
-| `default` | `anyatha` | switch default |
-| `class` | `varg` | declare a class |
-| `new` | `naya` | instantiate a class |
-| `this` | `yeh` | reference to current instance |
-| `true` | `sahi` | boolean true |
-| `false` | `galat` | boolean false |
-| `null` | `khaali` | null value |
-| `and` | `aur` | logical and |
-| `or` | `ya` | logical or |
-| `not` | `nahi` | logical not |
-| `break` | `roko` | break out of a loop |
-| `continue` | `jaari` | continue to next iteration |
-| `print` (built-in) | `chhap` | print to output |
-
-## Examples
-
-### English
+## Variables
 
 ```indlan
-fun factorial(n) {
-    if n <= 1 {
-        return 1
-    }
-    return n * factorial(n - 1)
-}
-
-print("factorial(6) =", factorial(6))
+let name = "Bhavya"
+let age = 19
 ```
 
-### Hindi
+Hindi-style:
 
 ```indlan
-kaam factorial(n) {
-    agar n <= 1 {
-        vapas 1
-    }
-    vapas n * factorial(n - 1)
-}
-
-chhap("factorial(6) =", factorial(6))
+maano naam = "Bhavya"
+maano umar = 19
 ```
 
-### do-while
+---
+
+## Data Types
+
+IndLan supports:
+
+```text
+int
+float
+string
+bool
+list
+dict
+null
+```
+
+Example:
+
+```indlan
+let age = 19
+let price = 99.99
+let name = "IndLan"
+let active = true
+let numbers = [1, 2, 3]
+let user = {"name": "Bhavya"}
+let value = null
+```
+
+---
+
+# 🔀 Control Flow
+
+## If / Elif / Else
+
+```indlan
+let age = 19
+
+if age >= 18 {
+    print("Adult")
+} elif age >= 13 {
+    print("Teenager")
+} else {
+    print("Child")
+}
+```
+
+Hindi version:
+
+```indlan
+maano umar = 19
+
+agar umar >= 18 {
+    chhap("Adult")
+} nahito_agar umar >= 13 {
+    chhap("Teenager")
+} nahito {
+    chhap("Child")
+}
+```
+
+---
+
+## While Loop
 
 ```indlan
 let i = 0
+
+while i < 5 {
+    print(i)
+    i += 1
+}
+```
+
+Hindi:
+
+```indlan
+maano i = 0
+
+jabtak i < 5 {
+    chhap(i)
+    i += 1
+}
+```
+
+---
+
+## Do-While Loop
+
+```indlan
+let i = 0
+
 do {
     print("i =", i)
     i += 1
 } while i < 3
 ```
 
-### switch / case
+---
+
+## For Loop
+
+```indlan
+for i in range(5) {
+    print(i)
+}
+```
+
+Hindi:
+
+```indlan
+pratyek i mein range(5) {
+    chhap(i)
+}
+```
+
+---
+
+## Break and Continue
+
+```indlan
+while true {
+    if condition {
+        break
+    }
+
+    continue
+}
+```
+
+Hindi:
+
+```indlan
+jabtak sahi {
+    agar condition {
+        roko
+    }
+
+    jaari
+}
+```
+
+---
+
+# 🔀 Switch / Case
 
 ```indlan
 let day = 3
+
 switch day {
     case 1 {
         print("Monday")
     }
+
     case 3 {
         print("Wednesday")
     }
+
     default {
         print("Some other day")
     }
 }
 ```
 
-### Classes
+Hindi version:
+
+```indlan
+maano din = 3
+
+vibhag din {
+    sthiti 1 {
+        chhap("Monday")
+    }
+
+    sthiti 3 {
+        chhap("Wednesday")
+    }
+
+    anyatha {
+        chhap("Some other day")
+    }
+}
+```
+
+---
+
+# 🧩 Functions
+
+```indlan
+fun greet(name) {
+    print("Hello", name)
+}
+
+greet("Bhavya")
+```
+
+Hindi:
+
+```indlan
+kaam abhivaadan(naam) {
+    chhap("Namaste", naam)
+}
+
+abhivaadan("Bhavya")
+```
+
+---
+
+## Recursion
+
+```indlan
+fun factorial(n) {
+    if n <= 1 {
+        return 1
+    }
+
+    return n * factorial(n - 1)
+}
+
+print(factorial(6))
+```
+
+Hindi:
+
+```indlan
+kaam factorial(n) {
+    agar n <= 1 {
+        vapas 1
+    }
+
+    vapas n * factorial(n - 1)
+}
+
+chhap(factorial(6))
+```
+
+Output:
+
+```text
+720
+```
+
+---
+
+# 🏛️ Classes and Objects
 
 ```indlan
 class Animal {
@@ -144,53 +386,417 @@ class Animal {
         this.name = name
         this.sound = sound
     }
+
     fun speak() {
         print(this.name, "says", this.sound)
     }
 }
 
 let dog = new Animal("Dog", "Woof")
+
 dog.speak()
 ```
 
-## Architecture (how it works internally)
+Hindi-style:
 
-IndLan follows the same pipeline as real interpreted languages:
+```indlan
+varg Pashu {
+    kaam init(naam, awaaz) {
+        yeh.naam = naam
+        yeh.awaaz = awaaz
+    }
 
-1. **Lexer** (`lexer.py`) — scans raw source text character by character and groups it into tokens (`IDENT`, `INT`, `STRING`, `PLUS`, `LBRACE`, etc). Hindi keyword aliases are translated to the same token type as their English equivalent right here, so the parser and interpreter need zero special-casing for Hindi support.
-2. **Parser** (`ind_parser.py`) — a recursive-descent parser that consumes tokens and builds an Abstract Syntax Tree (AST), using standard operator-precedence climbing (`assignment -> or -> and -> equality -> comparison -> term -> factor -> unary -> call/postfix -> primary`).
-3. **Interpreter** (`interpreter.py`) — walks the AST recursively. Each node type has a corresponding `exec_*` (statement) or `eval_*` (expression) method. Variable scoping is handled by a chain of `Environment` objects (every block/function call creates a new environment whose parent is the enclosing scope) — this is what makes closures work correctly.
-4. **Browser playground** (`playground.html`) — embeds the four files above as JavaScript template strings, writes them into Pyodide's in-browser virtual filesystem at page load, then calls the same `tokenize` → `parse` → `Interpreter.run` pipeline directly from JavaScript via Pyodide's Python bridge. Output is captured by redirecting Python's `sys.stdout` to an in-memory buffer and displaying it on the page.
+    kaam bolo() {
+        chhap(yeh.naam, "kehta hai", yeh.awaaz)
+    }
+}
 
-## On ".bss" / native compilation
+maano kutta = naya Pashu("Dog", "Woof")
 
-You originally mentioned wanting `.bss`-segment-style execution. That refers to how *compiled* languages (like C) lay out memory in the final binary: `.text` (code), `.data` (initialized globals), `.bss` (uninitialized globals), `.rodata` (constants).
+kuttta.bolo()
+```
 
-IndLan as built here is an **interpreter** — it runs your `.ind` source directly without producing a binary, which is how Python, JavaScript, and Ruby work too. To get real `.bss`/`.data`/`.text` segments, IndLan would need a second backend: a compiler stage that translates the AST into x86-64 assembly (or LLVM IR) instead of executing it directly. That's a substantial, separate project — happy to start that as a v2 if you want IndLan to also be ahead-of-time compilable to a native executable.
+---
 
-## Known limitations (intentional v1 scope)
+# 📦 Collections
 
-- No module/import system yet (`import` is reserved but unimplemented)
-- No inheritance for classes yet (single class body, no `extends`)
-- No file I/O built-ins yet
-- No exception/try-catch handling yet (runtime errors halt the program with a message)
+## Lists
 
-These are natural next additions — let me know which you'd like next.
-Run IndLan
+```indlan
+let numbers = [1, 2, 3]
 
+print(numbers[0])
 
-Installation
+append(numbers, 4)
 
-Install IndLan from PyPI:
+print(len(numbers))
+```
 
-pip install indlan
+## Dictionaries
 
-Usage
+```indlan
+let user = {
+    "name": "Bhavya",
+    "language": "IndLan"
+}
 
-Run an IndLan program:
+print(user["name"])
+```
 
-indlan myprogram.ind
+---
 
-Start the interactive REPL:
+# 🛠️ Built-in Functions
 
-indlan
+| Function   | Description               |
+| ---------- | ------------------------- |
+| `print()`  | Print output              |
+| `chhap()`  | Hindi alias for `print()` |
+| `len()`    | Get length                |
+| `range()`  | Generate a range          |
+| `str()`    | Convert to string         |
+| `int()`    | Convert to integer        |
+| `float()`  | Convert to float          |
+| `input()`  | Read user input           |
+| `type()`   | Get value type            |
+| `append()` | Add to a list             |
+| `pop()`    | Remove from a list        |
+| `keys()`   | Get dictionary keys       |
+| `values()` | Get dictionary values     |
+
+---
+
+# 🔤 Hindi Keyword Support
+
+Every major keyword has a Hindi-style alias.
+
+| English    | Hindi Alias   | Purpose              |
+| ---------- | ------------- | -------------------- |
+| `let`      | `maano`       | Variable declaration |
+| `fun`      | `kaam`        | Function             |
+| `return`   | `vapas`       | Return value         |
+| `if`       | `agar`        | Condition            |
+| `elif`     | `nahito_agar` | Else-if              |
+| `else`     | `nahito`      | Else                 |
+| `while`    | `jabtak`      | While loop           |
+| `do`       | `karo`        | Do-while             |
+| `for`      | `pratyek`     | For loop             |
+| `in`       | `mein`        | Collection iteration |
+| `switch`   | `vibhag`      | Switch statement     |
+| `case`     | `sthiti`      | Case                 |
+| `default`  | `anyatha`     | Default case         |
+| `class`    | `varg`        | Class                |
+| `new`      | `naya`        | Create object        |
+| `this`     | `yeh`         | Current object       |
+| `true`     | `sahi`        | Boolean true         |
+| `false`    | `galat`       | Boolean false        |
+| `null`     | `khaali`      | Null                 |
+| `and`      | `aur`         | Logical AND          |
+| `or`       | `ya`          | Logical OR           |
+| `not`      | `nahi`        | Logical NOT          |
+| `break`    | `roko`        | Stop loop            |
+| `continue` | `jaari`       | Continue loop        |
+| `print`    | `chhap`       | Print output         |
+
+You can even mix both languages:
+
+```indlan
+maano age = 20
+
+if age >= 18 {
+    chhap("Adult")
+} nahito {
+    print("Minor")
+}
+```
+
+---
+
+# 🧠 How IndLan Works
+
+IndLan follows the same fundamental architecture used by real programming languages.
+
+```text
+Source Code
+     │
+     ▼
+┌─────────────┐
+│    Lexer    │
+└──────┬──────┘
+       │ Tokens
+       ▼
+┌─────────────┐
+│    Parser   │
+└──────┬──────┘
+       │ AST
+       ▼
+┌─────────────┐
+│ Interpreter  │
+└──────┬──────┘
+       │
+       ▼
+    Output
+```
+
+### 1. Lexer
+
+The lexer reads source code character by character and converts it into tokens.
+
+```text
+let x = 10
+```
+
+Becomes something like:
+
+```text
+LET IDENTIFIER EQUALS INTEGER
+```
+
+Hindi keywords are converted to the same internal token as their English equivalents.
+
+For example:
+
+```text
+let   → LET
+maano → LET
+```
+
+This means the parser does not need special Hindi-language logic.
+
+---
+
+### 2. Parser
+
+The parser uses recursive descent to convert tokens into an Abstract Syntax Tree.
+
+Operator precedence is handled through:
+
+```text
+assignment
+    ↓
+or
+    ↓
+and
+    ↓
+equality
+    ↓
+comparison
+    ↓
+term
+    ↓
+factor
+    ↓
+unary
+    ↓
+call / postfix
+    ↓
+primary
+```
+
+---
+
+### 3. Interpreter
+
+The interpreter walks through the AST and executes the program.
+
+Each AST node has a corresponding operation such as:
+
+```text
+exec_*  → Statements
+eval_*  → Expressions
+```
+
+Variable scopes are managed using chained `Environment` objects.
+
+This enables:
+
+* Block scope
+* Function scope
+* Closures
+* Recursive functions
+
+---
+
+# 🌐 Browser Architecture
+
+The browser playground uses **Pyodide** to run Python inside the browser.
+
+The process is:
+
+```text
+IndLan Source Code
+        │
+        ▼
+JavaScript Playground
+        │
+        ▼
+Pyodide
+        │
+        ▼
+Python Virtual Filesystem
+        │
+        ▼
+Lexer → Parser → Interpreter
+        │
+        ▼
+Output Panel
+```
+
+The same interpreter pipeline is used:
+
+```text
+tokenize()
+    ↓
+parse()
+    ↓
+Interpreter.run()
+```
+
+Program output is captured and displayed directly in the browser.
+
+---
+
+# 🧪 Example Program
+
+```indlan
+class Calculator {
+    fun add(a, b) {
+        return a + b
+    }
+
+    fun multiply(a, b) {
+        return a * b
+    }
+}
+
+let calc = new Calculator()
+
+print("Addition:", calc.add(10, 20))
+print("Multiplication:", calc.multiply(5, 6))
+```
+
+Output:
+
+```text
+Addition: 30
+Multiplication: 30
+```
+
+---
+
+# ⚙️ Current Limitations
+
+The current v1 release intentionally does not include:
+
+* ❌ Module/import system
+* ❌ Class inheritance
+* ❌ File I/O
+* ❌ Exception handling
+* ❌ `try / catch`
+* ❌ Native compilation
+
+These features are planned possibilities for future versions.
+
+---
+
+# 🚀 Future Roadmap
+
+Possible future versions may include:
+
+* [ ] Module and package system
+* [ ] `import` support
+* [ ] Class inheritance
+* [ ] `try / catch` exception handling
+* [ ] File I/O
+* [ ] Standard library
+* [ ] Package manager
+* [ ] Bytecode virtual machine
+* [ ] JIT compilation
+* [ ] Native compiler backend
+* [ ] x86-64 assembly generation
+* [ ] LLVM backend
+* [ ] `.text`, `.data`, `.bss`, and `.rodata` segment support
+
+---
+
+# 🧱 About Native Compilation
+
+IndLan is currently an **interpreted language**.
+
+It executes:
+
+```text
+.ind Source Code
+        ↓
+      Lexer
+        ↓
+      Parser
+        ↓
+       AST
+        ↓
+  Tree-Walking Interpreter
+        ↓
+      Output
+```
+
+A future compiler backend could instead generate:
+
+```text
+.ind Source Code
+        ↓
+      Lexer
+        ↓
+      Parser
+        ↓
+       AST
+        ↓
+   Compiler Backend
+        ↓
+  Assembly / LLVM IR
+        ↓
+   Native Executable
+```
+
+This could eventually enable real native executable generation with memory sections such as:
+
+```text
+.text   → Machine code
+.data   → Initialized global data
+.bss    → Uninitialized global data
+.rodata → Read-only constants
+```
+
+That would be a major **IndLan v2** direction.
+
+---
+
+# 👨‍💻 Creator
+
+## Bhavya S Solanki
+
+**AI/ML Student • Python Developer • Data Scientist • Programming Language Creator**
+
+IndLan is an experimental programming language project built to explore:
+
+* Compiler design
+* Lexical analysis
+* Parsing
+* Abstract Syntax Trees
+* Interpreters
+* Programming language architecture
+* Bilingual programming syntax
+
+---
+
+# 📜 License
+
+Add your preferred license here, such as:
+
+```text
+MIT License
+```
+
+---
+
+⭐ If you like the idea of programming in both English and Hindi, consider starring the project!
+
+**IndLan — Code your way. अपनी भाषा में कोड करो।**
