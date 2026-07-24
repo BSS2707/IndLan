@@ -178,36 +178,19 @@ IndLan as built here is an **interpreter** — it runs your `.ind` source direct
 These are natural next additions — let me know which you'd like next.
 Run IndLan
 
-1. Install from PyPI (Recommended)
+
+Installation
+
+Install IndLan from PyPI:
 
 pip install indlan
 
-Run a program:
+Usage
+
+Run an IndLan program:
 
 indlan myprogram.ind
 
 Start the interactive REPL:
 
 indlan
-
----
-
-2. Run from Source
-
-python3 indlan.py myprogram.ind
-
-Start the REPL:
-
-python3 indlan.py
-
----
-
-3. Run in Your Browser
-
-Open "playground.html" in any modern web browser.
-
-- No installation required.
-- Write IndLan code on the left.
-- Click Run to execute your code.
-- Uses Pyodide to run Python directly in the browser.
-- Requires an internet connection only the first time to download the Pyodide runtime.
